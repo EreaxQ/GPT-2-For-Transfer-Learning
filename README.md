@@ -3,11 +3,17 @@ An implementation of GPT-2 that uses TensorFlow 2 to make GPT-2 more accessible.
 
 # Getting started
 First, you will need to clone the repository.
-`git clone https://github.com/EreaxQ/GPT-2-For-Transfer-Learning.git gpt2`
+```cmd
+git clone https://github.com/EreaxQ/GPT-2-For-Transfer-Learning.git gpt2
+```
 Download TensorFlow:
-`pip install tensorflow==2.1.0`
+```cmd
+pip install tensorflow==2.1.0
+```
 Or for faster computation with GPU:
-`pip install tensorflow-gpu==2.1.0`
+```cmd
+pip install tensorflow-gpu==2.1.0
+```
 Install requirements:
 ```cmd
 cd gpt2
