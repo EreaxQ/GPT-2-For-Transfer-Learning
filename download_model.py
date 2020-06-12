@@ -9,7 +9,7 @@ from tqdm import tqdm
 # Disable TF logs
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
-from load_model import v1_to_v2
+from load_model import v1_to_v2, path_join
 
 # Note: this file is mainly copied from OpenAI's GPT-2 repository, a few variables were changed and the model conversion was added
 
@@ -22,7 +22,7 @@ if len(sys.argv) != 2:
 model_size = sys.argv[1]
 
 # Get the directory in which the model's parameters will be stored
-subdir = "models/%s" % model_size
+subdir = path_join("models", model_size)
 
 # Make empty directories if they don't exist
 if not os.path.exists(subdir):
@@ -35,7 +35,7 @@ for filename in ['checkpoint','encoder.json','hparams.json', 'model.ckpt.data-00
     r = requests.get("https://storage.googleapis.com/gpt-2/" + subdir + "/" + filename, stream=True)
     
     # Determine where the parameters will be stored
-    storage_path = "temp/%s" % filename
+    storage_path = path_join("temp", filename)
         
     # Write all the parameters into their files
     with open(storage_path, 'wb') as f:
