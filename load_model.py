@@ -1,8 +1,14 @@
 import tensorflow as tf
 import json
+import os
 
 from tensorflow.python.training import py_checkpoint_reader
 from model import GPT2
+
+def path_join(*args):
+    """Better path joining"""
+    
+    return os.path.join(*args).replace("\\", "/")
 
 def load_weights(scope, variable_names, layer, reader):
     """Load all necessary variables to get a layer working from GPT2 model file"""
@@ -26,14 +32,14 @@ def load_model(model_path):
     # Load hyperparameters
     hparams = {}
     
-    with open("%s/%s" % (model_path, "hparams.json"), "r") as file:
+    with open(path_join(model_path, "hparams.json"), "r") as file:
         hparams = json.load(file)
     
     # Initialize the GPT2 model
     gpt2 = GPT2(hparams["n_layer"], hparams["n_head"], hparams["n_vocab"], hparams["n_ctx"], hparams["n_embd"])
     
     # Load weights
-    gpt2.load_weights("%s/%s" % (model_path, "weights"))
+    gpt2.load_weights(path_join(model_path, "weights"))
     
     return gpt2
 
@@ -41,7 +47,7 @@ def save_model(model, save_path):
     """Save a GPT2 model to a TF2 save file"""
     
     # Save weights
-    model.save_weights("%s/%s" % (save_path, "weights"))
+    model.save_weights(path_join(save_path, "weights"))
     
     # Load hyperparameters
     hparams = {
@@ -53,7 +59,7 @@ def save_model(model, save_path):
     }
     
     # Write hyperparameters
-    with open("%s/%s" % (save_path, "hparams.json"), "w") as file:
+    with open(path_join(save_path, "hparams.json"), "w") as file:
         file.write(json.dumps(hparams))
 
 def v1_to_v2(model_path, save_path):
@@ -61,7 +67,7 @@ def v1_to_v2(model_path, save_path):
     
     hparams = {}
     # Load hyperparameters
-    with open("%s/%s" % (model_path, "hparams.json"), "r") as file:
+    with open(path_join(model_path, "hparams.json"), "r") as file:
         hparams = json.load(file)
     
     # Initialize the GPT2 model
