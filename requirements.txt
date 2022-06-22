@@ -1,4 +1,4 @@
-numpy==1.17.1
+numpy==1.22.0
 tqdm==4.46.0
 json5==0.9.4
 requests==2.23.0
